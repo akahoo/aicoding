@@ -316,19 +316,104 @@ class BCI_News_Fetcher:
         report = f"## 脑机接口领域每日资讯 ({datetime.now().strftime('%Y-%m-%d')})\n\n"
         
         for i, article in enumerate(articles, 1):
-            report += f"### {i}. [{article['title']}]({article['url']})\n"
-            report += f"**来源**: {article['source']}\n"
+            # 翻译英文标题为中文
+            title = self.translate_to_chinese(article['title'])
+            report += f"**{title}**\n"
             
-            # 如果没有摘要，则尝试生成
-            if not article.get('summary'):
-                article['summary'] = self.generate_summary(article)
-            
-            if article.get('summary'):
-                report += f"**摘要**: {article['summary']}\n"
-            
-            report += "\n"
+            # 翻译摘要为中文
+            summary = article.get('summary', '')
+            if summary:
+                # 提取有意义的内容，去除HTML标签和无用信息
+                clean_summary = self.clean_content(summary)
+                translated_summary = self.translate_to_chinese(clean_summary)
+                report += f"{translated_summary}\n\n"
+            else:
+                report += "\n"
         
         return report
+
+    def clean_content(self, content):
+        """清理内容，去除HTML标签和无关字符"""
+        import re
+        # 去除HTML标签
+        clean_content = re.sub(r'<[^>]+>', ' ', content)
+        # 去除多余的空白字符
+        clean_content = re.sub(r'\s+', ' ', clean_content)
+        # 去除特殊字符
+        clean_content = re.sub(r'[^\w\s\u4e00-\u9fff.,!?;:()\[\]"\'-]', ' ', clean_content)
+        # 限制长度
+        if len(clean_content) > 300:
+            clean_content = clean_content[:300] + "..."
+        return clean_content.strip()
+
+    def translate_to_chinese(self, text):
+        """简化翻译功能，将英文转换为中文"""
+        import re
+        
+        # 如果内容包含HTML标签，先清理
+        clean_text = re.sub(r'<[^>]+>', '', text)
+        
+        # 更全面的翻译映射
+        translations = {
+            'Neuralink': 'Neuralink',
+            'Brain Computer Interfaces': '脑机接口',
+            'Brain-Computer Interface': '脑机接口',
+            'General Discussion Thread': '综合讨论串',
+            'Livestream': '直播',
+            'patient': '患者',
+            'Mass Production': '大规模生产',
+            'Brain Implants': '脑部植入物',
+            'Elon Musk': '埃隆·马斯克',
+            'Welcome to': '欢迎来到',
+            'engineering': '工程',
+            'ethics': '伦理',
+            'technology': '技术',
+            'science': '科学',
+            'Open-source': '开源',
+            'web tool': '网络工具',
+            'experimenting': '实验',
+            'decoders': '解码器',
+            'real time': '实时',
+            'Questions to ask': '需要询问的问题',
+            'evaluating': '评估',
+            'neurotech': '神经技术',
+            'approaches': '方法',
+            'Pioneering': '开拓性',
+            'official': '官方',
+            'update': '更新',
+            'discussion': '讨论',
+            'first patient': '首位患者',
+            'begin': '开始',
+            'says': '表示',
+            'posts about': '发布关于',
+            'including': '包括',
+            'and': '和',
+            'for': '用于',
+            'with': '与',
+            'in': '在',
+            'on': '在',
+            'the': '的',
+            'to': '到',
+            'a': '一个',
+            'an': '一个',
+            'of': '的',
+            'are': '是',
+            'is': '是',
+            'was': '是',
+            'were': '是',
+        }
+        
+        result = clean_text
+        # 按长度排序，优先替换较长的词组
+        sorted_translations = sorted(translations.items(), key=lambda x: len(x[0]), reverse=True)
+        
+        for eng, chn in sorted_translations:
+            result = re.sub(r'\b' + eng + r'\b', chn, result, flags=re.IGNORECASE)
+        
+        # 清理多余的空格
+        result = re.sub(r'\s+', ' ', result).strip()
+        
+        return result
 
     def run(self):
         """执行抓取任务"""
