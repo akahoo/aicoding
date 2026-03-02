@@ -54,10 +54,15 @@ export default function RoomPage({
     // 调试：定期检查状态
     const debugInterval = setInterval(() => {
       if (gameState?.players) {
+        const isHost = playerId === gameState.players[0]?.id;
+        const allReady = gameState.players.length === 4 && 
+                        gameState.players.every(p => p.state === 'ready');
+        const canStartGame = isHost && allReady;
+        
         console.log('🔍 调试 - 当前玩家数:', gameState.players.length);
         console.log('🔍 调试 - 准备状态:', gameState.players.map(p => `${p.nickname}:${p.state}`));
-        console.log('🔍 调试 - 是房主:', playerId === gameState.players[0]?.id);
-        console.log('🔍 调试 - 可以开始:', canStart);
+        console.log('🔍 调试 - 是房主:', isHost);
+        console.log('🔍 调试 - 可以开始:', canStartGame);
       }
     }, 5000);
 
@@ -68,7 +73,7 @@ export default function RoomPage({
       socket.off('all-ready', handleAllReady);
       clearInterval(debugInterval);
     };
-  }, [socket, setGameState, gameState, playerId, canStart]);
+  }, [socket, setGameState, gameState, playerId]);
 
   const handleCopyLink = async () => {
     try {
