@@ -3,8 +3,16 @@ import { io } from 'socket.io-client'
 import HomePage from './pages/HomePage'
 import RoomPage from './pages/RoomPage'
 import GamePage from './pages/GamePage'
+import JoinRoomPage from './pages/JoinRoomPage'
 
 const API_URL = import.meta.env.PROD ? '' : 'http://localhost:3001';
+
+// 从 URL 获取房间号
+function getRoomIdFromUrl() {
+  const path = window.location.pathname;
+  const match = path.match(/\/game\/([a-zA-Z0-9]+)/);
+  return match ? match[1] : null;
+}
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -13,6 +21,7 @@ function App() {
   const [playerId, setPlayerId] = useState(null);
   const [nickname, setNickname] = useState('');
   const [gameState, setGameState] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // 初始化 Socket 连接
@@ -54,6 +63,17 @@ function App() {
     });
 
     setSocket(newSocket);
+
+    // 检查 URL 中的房间号
+    const urlRoomId = getRoomIdFromUrl();
+    if (urlRoomId) {
+      console.log('从 URL 获取到房间号:', urlRoomId);
+      setRoomId(urlRoomId);
+      // 显示加入房间表单
+      setCurrentPage('join');
+    }
+    
+    setIsLoading(false);
 
     return () => {
       newSocket.close();
@@ -125,6 +145,14 @@ function App() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white text-2xl">加载中...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-800 to-green-900">
       {currentPage === 'home' && (
@@ -132,6 +160,17 @@ function App() {
           onCreateRoom={createRoom}
           onJoinRoom={joinRoom}
           getRandomNickname={getRandomNickname}
+        />
+      )}
+
+      {currentPage === 'join' && roomId && (
+        <JoinRoomPage
+          roomId={roomId}
+          onJoin={joinRoom}
+          onBack={() => {
+            setCurrentPage('home');
+            setRoomId(null);
+          }}
         />
       )}
       

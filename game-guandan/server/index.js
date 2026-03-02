@@ -83,6 +83,14 @@ app.post('/api/room/:roomId/join', (req, res) => {
     return res.status(400).json({ error: result.error });
   }
 
+  // 广播给房间内所有玩家
+  io.to(`room:${roomId}`).emit('room-update', room.getGameState(result.playerId));
+  io.to(`room:${roomId}`).emit('player-joined', {
+    playerId: result.playerId,
+    nickname: nickname.trim(),
+    playerCount: room.players.length
+  });
+
   res.json({
     roomId: room.id,
     playerId: result.playerId

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function RoomPage({ 
   socket, 
@@ -11,10 +11,36 @@ export default function RoomPage({
   onGoToGame 
 }) {
   const [copied, setCopied] = useState(false);
+  const [notification, setNotification] = useState(null);
   
   const inviteUrl = typeof window !== 'undefined' 
     ? `${window.location.origin}/game/${roomId}` 
     : `/game/${roomId}`;
+
+  // 监听新玩家加入
+  useEffect(() => {
+    if (!socket) return;
+
+    const handlePlayerJoined = (data) => {
+      console.log('新玩家加入:', data);
+      setNotification(`🎉 ${data.nickname} 加入了房间！`);
+      setTimeout(() => setNotification(null), 3000);
+    };
+
+    const handlePlayerLeft = (data) => {
+      console.log('玩家离开:', data);
+      setNotification(`👋 ${data.nickname} 离开了房间`);
+      setTimeout(() => setNotification(null), 3000);
+    };
+
+    socket.on('player-joined', handlePlayerJoined);
+    socket.on('player-left', handlePlayerLeft);
+
+    return () => {
+      socket.off('player-joined', handlePlayerJoined);
+      socket.off('player-left', handlePlayerLeft);
+    };
+  }, [socket]);
 
   const handleCopyLink = async () => {
     try {
@@ -42,6 +68,13 @@ export default function RoomPage({
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-4xl mx-auto">
+        {/* 通知 */}
+        {notification && (
+          <div className="bg-yellow-500 text-white p-3 rounded-lg mb-4 text-center animate-pulse">
+            {notification}
+          </div>
+        )}
+
         {/* 头部 */}
         <div className="bg-white/10 backdrop-blur-lg rounded-xl p-4 mb-4">
           <div className="flex items-center justify-between">
