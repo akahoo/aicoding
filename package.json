@@ -1,0 +1,26 @@
+{
+  "name": "game-guandan",
+  "version": "1.0.0",
+  "description": "网页版掼蛋扑克游戏 - 4 人在线对战",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": [
+    "guandan",
+    "poker",
+    "card-game",
+    "multiplayer"
+  ],
+  "author": "lordz",
+  "license": "MIT"
+}
