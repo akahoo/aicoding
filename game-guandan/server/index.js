@@ -83,8 +83,7 @@ app.post('/api/room/:roomId/join', (req, res) => {
     return res.status(400).json({ error: result.error });
   }
 
-  // 广播给房间内所有玩家
-  io.to(`room:${roomId}`).emit('room-update', room.getGameState(result.playerId));
+  // 先广播给原有玩家
   io.to(`room:${roomId}`).emit('player-joined', {
     playerId: result.playerId,
     nickname: nickname.trim(),
@@ -128,6 +127,20 @@ io.on('connection', (socket) => {
   socket.on('join-room', ({ roomId, playerId }) => {
     socket.join(`room:${roomId}`);
     console.log(`玩家 ${playerId} 加入房间 ${roomId}`);
+    
+    // 发送当前房间状态给新玩家
+    const room = roomManager.getRoom(roomId);
+    if (room) {
+      socket.emit('room-update', room.getGameState(playerId));
+    }
+  });
+
+  // 获取房间状态
+  socket.on('get-room-state', ({ roomId, playerId }) => {
+    const room = roomManager.getRoom(roomId);
+    if (room) {
+      socket.emit('room-update', room.getGameState(playerId));
+    }
   });
 
   // 玩家准备

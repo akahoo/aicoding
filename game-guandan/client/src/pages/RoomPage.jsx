@@ -6,6 +6,7 @@ export default function RoomPage({
   playerId, 
   nickname, 
   gameState, 
+  setGameState,
   onStartGame, 
   onReady,
   onGoToGame 
@@ -17,7 +18,7 @@ export default function RoomPage({
     ? `${window.location.origin}/game/${roomId}` 
     : `/game/${roomId}`;
 
-  // 监听新玩家加入
+  // 监听通知
   useEffect(() => {
     if (!socket) return;
 

@@ -34,7 +34,12 @@ function App() {
     });
 
     newSocket.on('room-update', (state) => {
+      console.log('房间更新:', state);
       setGameState(state);
+    });
+
+    newSocket.on('player-joined', (data) => {
+      console.log('玩家加入通知:', data);
     });
 
     newSocket.on('game-start', (data) => {
@@ -129,6 +134,17 @@ function App() {
       
       // 加入 Socket 房间
       socket.emit('join-room', { roomId: data.roomId, playerId: data.playerId });
+      
+      // 延迟获取房间状态（确保 Socket 已加入）
+      setTimeout(() => {
+        fetch(`${API_URL}/api/room/${data.roomId}?playerId=${data.playerId}`)
+          .then(res => res.json())
+          .then(state => {
+            console.log('获取房间状态:', state);
+            setGameState(state);
+          })
+          .catch(err => console.error('获取房间状态失败:', err));
+      }, 500);
     } catch (err) {
       alert('加入房间失败：' + err.message);
     }
@@ -181,6 +197,7 @@ function App() {
           playerId={playerId}
           nickname={nickname}
           gameState={gameState}
+          setGameState={setGameState}
           onStartGame={() => socket.emit('start-game', { roomId, playerId })}
           onReady={() => socket.emit('player-ready', { roomId, playerId })}
           onGoToGame={() => setCurrentPage('game')}
