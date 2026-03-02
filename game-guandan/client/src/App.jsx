@@ -107,6 +107,17 @@ function App() {
       
       // 加入 Socket 房间
       socket.emit('join-room', { roomId: data.roomId, playerId: data.playerId });
+      
+      // 获取初始房间状态
+      setTimeout(() => {
+        fetch(`${API_URL}/api/room/${data.roomId}?playerId=${data.playerId}`)
+          .then(res => res.json())
+          .then(state => {
+            console.log('获取初始房间状态:', state);
+            setGameState(state);
+          })
+          .catch(err => console.error('获取房间状态失败:', err));
+      }, 500);
     } catch (err) {
       alert('创建房间失败：' + err.message);
     }

@@ -18,30 +18,37 @@ export default function RoomPage({
     ? `${window.location.origin}/game/${roomId}` 
     : `/game/${roomId}`;
 
-  // 监听通知
+  // 监听房间事件
   useEffect(() => {
     if (!socket) return;
 
+    const handleRoomUpdate = (state) => {
+      console.log('📢 房间状态更新:', state);
+      setGameState(state);
+    };
+
     const handlePlayerJoined = (data) => {
-      console.log('新玩家加入:', data);
+      console.log('🎉 新玩家加入:', data);
       setNotification(`🎉 ${data.nickname} 加入了房间！`);
       setTimeout(() => setNotification(null), 3000);
     };
 
     const handlePlayerLeft = (data) => {
-      console.log('玩家离开:', data);
+      console.log('👋 玩家离开:', data);
       setNotification(`👋 ${data.nickname} 离开了房间`);
       setTimeout(() => setNotification(null), 3000);
     };
 
+    socket.on('room-update', handleRoomUpdate);
     socket.on('player-joined', handlePlayerJoined);
     socket.on('player-left', handlePlayerLeft);
 
     return () => {
+      socket.off('room-update', handleRoomUpdate);
       socket.off('player-joined', handlePlayerJoined);
       socket.off('player-left', handlePlayerLeft);
     };
-  }, [socket]);
+  }, [socket, setGameState]);
 
   const handleCopyLink = async () => {
     try {

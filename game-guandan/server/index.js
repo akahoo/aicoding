@@ -83,17 +83,22 @@ app.post('/api/room/:roomId/join', (req, res) => {
     return res.status(400).json({ error: result.error });
   }
 
-  // 先广播给原有玩家
-  io.to(`room:${roomId}`).emit('player-joined', {
-    playerId: result.playerId,
-    nickname: nickname.trim(),
-    playerCount: room.players.length
-  });
-
   res.json({
     roomId: room.id,
     playerId: result.playerId
   });
+  
+  // 延迟广播，确保新玩家已加入 Socket 房间
+  setTimeout(() => {
+    // 广播给房间内所有玩家（包括新玩家）
+    io.to(`room:${roomId}`).emit('room-update', room.getGameState(result.playerId));
+    io.to(`room:${roomId}`).emit('player-joined', {
+      playerId: result.playerId,
+      nickname: nickname.trim(),
+      playerCount: room.players.length
+    });
+    console.log(`广播玩家加入：${nickname} 到房间 ${roomId}`);
+  }, 300);
 });
 
 // 获取房间状态
