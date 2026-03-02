@@ -5,7 +5,7 @@ import RoomPage from './pages/RoomPage'
 import GamePage from './pages/GamePage'
 import JoinRoomPage from './pages/JoinRoomPage'
 
-const API_URL = import.meta.env.PROD ? '' : 'http://localhost:3001';
+const API_URL = import.meta.env.PROD ? '' : 'http://localhost:5001';
 
 // 从 URL 获取房间号
 function getRoomIdFromUrl() {
