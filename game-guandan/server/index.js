@@ -151,16 +151,23 @@ io.on('connection', (socket) => {
   // 玩家准备
   socket.on('player-ready', ({ roomId, playerId }) => {
     const room = roomManager.getRoom(roomId);
-    if (!room) return;
+    if (!room) {
+      console.error(`房间不存在：${roomId}`);
+      return;
+    }
 
     const result = room.playerReady(playerId);
+    console.log(`玩家准备：${playerId}, 结果：${result.success}, 所有人都准备好：${result.allReady}`);
+    console.log(`当前玩家状态：`, room.players.map(p => ({ id: p.id, nickname: p.nickname, state: p.state })));
     
-    // 广播房间状态
+    // 广播房间状态给所有人
     io.to(`room:${roomId}`).emit('room-update', room.getGameState(playerId));
+    console.log(`广播房间状态到 room:${roomId}`);
 
     // 如果所有人都准备好了，通知可以开始
     if (result.success && result.allReady) {
       io.to(`room:${roomId}`).emit('all-ready');
+      console.log(`所有玩家已准备，发送 all-ready 到 room:${roomId}`);
     }
   });
 

@@ -24,6 +24,7 @@ export default function RoomPage({
 
     const handleRoomUpdate = (state) => {
       console.log('📢 房间状态更新:', state);
+      console.log('玩家列表:', state?.players?.map(p => ({ nickname: p.nickname, state: p.state })));
       setGameState(state);
     };
 
@@ -39,16 +40,35 @@ export default function RoomPage({
       setTimeout(() => setNotification(null), 3000);
     };
 
+    const handleAllReady = () => {
+      console.log('✅ 所有玩家已准备！');
+      setNotification('✅ 所有玩家已准备，房主可以开始游戏！');
+      setTimeout(() => setNotification(null), 5000);
+    };
+
     socket.on('room-update', handleRoomUpdate);
     socket.on('player-joined', handlePlayerJoined);
     socket.on('player-left', handlePlayerLeft);
+    socket.on('all-ready', handleAllReady);
+
+    // 调试：定期检查状态
+    const debugInterval = setInterval(() => {
+      if (gameState?.players) {
+        console.log('🔍 调试 - 当前玩家数:', gameState.players.length);
+        console.log('🔍 调试 - 准备状态:', gameState.players.map(p => `${p.nickname}:${p.state}`));
+        console.log('🔍 调试 - 是房主:', playerId === gameState.players[0]?.id);
+        console.log('🔍 调试 - 可以开始:', canStart);
+      }
+    }, 5000);
 
     return () => {
       socket.off('room-update', handleRoomUpdate);
       socket.off('player-joined', handlePlayerJoined);
       socket.off('player-left', handlePlayerLeft);
+      socket.off('all-ready', handleAllReady);
+      clearInterval(debugInterval);
     };
-  }, [socket, setGameState]);
+  }, [socket, setGameState, gameState, playerId, canStart]);
 
   const handleCopyLink = async () => {
     try {
