@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOUNTAIN X - 极致山地自行车</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">MOUNTAIN X</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#models">车型</a></li>
+                <li><a href="#technology">科技</a></li>
+                <li><a href="#specs">参数</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">征服每一座山峰</span>
+                <span class="title-line gradient-text">MOUNTAIN X</span>
+            </h1>
+            <p class="hero-subtitle">新一代碳纤维山地自行车 · 为极限而生</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">8.9kg</span>
+                    <span class="stat-label">超轻车身</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">24 速</span>
+                    <span class="stat-label">变速系统</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">120mm</span>
+                    <span class="stat-label">前叉行程</span>
+                </div>
+            </div>
+            <a href="#models" class="btn btn-primary">探索车型</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>向下滚动</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- 车型展示 -->
+    <section id="models" class="models">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-tag">MODELS</span>
+                <span class="title-text">选择你的战车</span>
+            </h2>
+            <div class="models-grid">
+                <!-- 车型 1 -->
+                <div class="model-card" data-model="x1">
+                    <div class="model-image">
+                        <div class="model-placeholder">
+                            <span class="bike-icon">🚴</span>
+                        </div>
+                        <div class="model-badge">旗舰款</div>
+                    </div>
+                    <div class="model-info">
+                        <h3 class="model-name">MOUNTAIN X1</h3>
+                        <p class="model-desc">顶级竞赛级山地车，采用 T1000 碳纤维车架，为专业骑手打造</p>
+                        <div class="model-specs">
+                            <span class="spec-tag">T1000 碳纤维</span>
+                            <span class="spec-tag">8.9kg</span>
+                            <span class="spec-tag">FOX 前叉</span>
+                        </div>
+                        <div class="model-price">
+                            <span class="price-label">价格</span>
+                            <span class="price-value">¥29,999</span>
+                        </div>
+                        <button class="btn btn-outline">了解详情</button>
+                    </div>
+                </div>
+
+                <!-- 车型 2 -->
+                <div class="model-card" data-model="x2">
+                    <div class="model-image">
+                        <div class="model-placeholder">
+                            <span class="bike-icon">🚵</span>
+                        </div>
+                        <div class="model-badge hot">热销款</div>
+                    </div>
+                    <div class="model-info">
+                        <h3 class="model-name">MOUNTAIN X2</h3>
+                        <p class="model-desc">全能型山地车，平衡性能与价格，适合进阶骑行爱好者</p>
+                        <div class="model-specs">
+                            <span class="spec-tag">T800 碳纤维</span>
+                            <span class="spec-tag">10.2kg</span>
+                            <span class="spec-tag">RockShox</span>
+                        </div>
+                        <div class="model-price">
+                            <span class="price-label">价格</span>
+                            <span class="price-value">¥19,999</span>
+                        </div>
+                        <button class="btn btn-outline">了解详情</button>
+                    </div>
+                </div>
+
+                <!-- 车型 3 -->
+                <div class="model-card" data-model="x3">
+                    <div class="model-image">
+                        <div class="model-placeholder">
+                            <span class="bike-icon">🚲</span>
+                        </div>
+                    </div>
+                    <div class="model-info">
+                        <h3 class="model-name">MOUNTAIN X3</h3>
+                        <p class="model-desc">入门级碳纤维山地车，性价比之选，开启你的山地骑行之旅</p>
+                        <div class="model-specs">
+                            <span class="spec-tag">T700 碳纤维</span>
+                            <span class="spec-tag">11.5kg</span>
+                            <span class="spec-tag">SR 前叉</span>
+                        </div>
+                        <div class="model-price">
+                            <span class="price-label">价格</span>
+                            <span class="price-value">¥12,999</span>
+                        </div>
+                        <button class="btn btn-outline">了解详情</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术亮点 -->
+    <section id="technology" class="technology">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-tag">TECHNOLOGY</span>
+                <span class="title-text">核心科技</span>
+            </h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="tech-title">单体碳纤维车架</h3>
+                    <p class="tech-desc">采用航空航天级 T1000 碳纤维，一体成型工艺，重量减轻 30% 的同时强度提升 50%</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m15.5-6.5l-4.5 4.5m-4.5 4.5l-4.5 4.5m9-13.5l4.5 4.5m4.5 4.5l4.5 4.5"/>
+                        </svg>
+                    </div>
+                    <h3 class="tech-title">智能变速系统</h3>
+                    <p class="tech-desc">24 速精准变速，搭配电子变速技术，毫秒级响应，让每一次换挡都流畅无比</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="tech-title">液压碟刹系统</h3>
+                    <p class="tech-desc">四活塞液压碟刹，提供强大的制动力，湿滑路面也能精准控制</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                        </svg>
+                    </div>
+                    <h3 class="tech-title">可调前叉悬挂</h3>
+                    <p class="tech-desc">120mm 行程气压前叉，支持压缩/回弹调节，适应各种复杂地形</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品参数 -->
+    <section id="specs" class="specs">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-tag">SPECIFICATIONS</span>
+                <span class="title-text">技术规格</span>
+            </h2>
+            <div class="specs-container">
+                <div class="specs-table-wrapper">
+                    <table class="specs-table">
+                        <thead>
+                            <tr>
+                                <th>参数</th>
+                                <th>MOUNTAIN X1</th>
+                                <th>MOUNTAIN X2</th>
+                                <th>MOUNTAIN X3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>车架材质</td>
+                                <td>T1000 碳纤维</td>
+                                <td>T800 碳纤维</td>
+                                <td>T700 碳纤维</td>
+                            </tr>
+                            <tr>
+                                <td>车架重量</td>
+                                <td>890g</td>
+                                <td>1020g</td>
+                                <td>1150g</td>
+                            </tr>
+                            <tr>
+                                <td>整车重量</td>
+                                <td>8.9kg</td>
+                                <td>10.2kg</td>
+                                <td>11.5kg</td>
+                            </tr>
+                            <tr>
+                                <td>变速系统</td>
+                                <td>SHIMANO XTR 12 速</td>
+                                <td>SHIMANO XT 12 速</td>
+                                <td>SHIMANO SLX 12 速</td>
+                            </tr>
+                            <tr>
+                                <td>前叉</td>
+                                <td>FOX 32 Factory</td>
+                                <td>RockShox SID</td>
+                                <td>SR Suntour XCM</td>
+                            </tr>
+                            <tr>
+                                <td>前叉行程</td>
+                                <td>120mm</td>
+                                <td>120mm</td>
+                                <td>100mm</td>
+                            </tr>
+                            <tr>
+                                <td>刹车系统</td>
+                                <td>SHIMANO XTR 四活塞</td>
+                                <td>SHIMANO XT 四活塞</td>
+                                <td>TEKTRO 双活塞</td>
+                            </tr>
+                            <tr>
+                                <td>轮组</td>
+                                <td>DT SWISS XRC1200</td>
+                                <td>DT SWISS XR1700</td>
+                                <td>MAVIC Crossride</td>
+                            </tr>
+                            <tr>
+                                <td>轮胎</td>
+                                <td>Continental Race King 29"</td>
+                                <td>Continental Race King 29"</td>
+                                <td>CST 29"</td>
+                            </tr>
+                            <tr>
+                                <td>座管</td>
+                                <td>碳纤维升降座管</td>
+                                <td>铝合金升降座管</td>
+                                <td>铝合金座管</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">
+                <span class="title-tag">CONTACT</span>
+                <span class="title-text">联系我们</span>
+            </h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <h4>地址</h4>
+                            <p>上海市浦东新区科技园 88 号</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <h4>电话</h4>
+                            <p>400-888-8888</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <div>
+                            <h4>邮箱</h4>
+                            <p>info@mountainx.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="您的邮箱" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="留言内容" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-icon">⚡</span>
+                        <span class="logo-text">MOUNTAIN X</span>
+                    </div>
+                    <p>极致山地自行车 · 为征服而生</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">首页</a>
+                    <a href="#models">车型</a>
+                    <a href="#technology">科技</a>
+                    <a href="#specs">参数</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link">微信</a>
+                    <a href="#" class="social-link">微博</a>
+                    <a href="#" class="social-link">抖音</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MOUNTAIN X. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
